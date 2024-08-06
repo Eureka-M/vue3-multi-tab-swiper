@@ -2,14 +2,20 @@
   "name": "vue3-multi-tab-swiper",
   "private": false,
   "version": "0.0.1",
-  "keywords": ["multi-tab", "tab-swiper", "mult-tab-swiper"],
+  "keywords": [
+    "multi-tab",
+    "tab-swiper",
+    "mult-tab-swiper"
+  ],
   "type": "module",
   "scripts": {
-    "dev": "vite --force -host",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/vue3-multi-tab-swiper.umd.cjs",
   "module": "lib/vue3-multi-tab-swiper.js",
   "exports": {
@@ -20,6 +26,8 @@
     }
   },
   "dependencies": {
+    "ant-design-vue": "^4.2.3",
+    "less": "^4.2.0",
     "vue": "^3.4.31"
   },
   "devDependencies": {
