@@ -12,20 +12,34 @@
 </template>
 
 <script setup>
-  import { defineProps, ref } from 'vue';
+  import { defineProps, ref, watch, defineEmits } from 'vue';
 
   const props = defineProps({
     tabs: {
       type: Array,
       default: () => []
+    },
+    tabIndex: {
+      type: Number,
+      default: 0
     }
   })
 
-  let activeIndex = ref(0);
+  const emit = defineEmits(['tabChange'])
+
+  let activeIndex = ref(0)
 
   const tabClick = (index) => {
-    activeIndex.value = index;
+    activeIndex.value = index
   }
+
+  watch(() => activeIndex.value, (newValue) => {
+    emit('tabChange', newValue)
+  })
+
+  watch(() => props.tabIndex, (newValue) => {
+    activeIndex.value = newValue
+  })
 </script>
 
 <style lang="less" scoped>

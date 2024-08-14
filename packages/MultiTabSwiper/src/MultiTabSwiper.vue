@@ -3,18 +3,16 @@
     <slot name="bannerContent"></slot>
   </div>
   <div class="tabs-wrapper">
-    <Tab :tabs="tabs"/>
+    <Tab :tabs="tabs" :tabIndex="activeIndex" @tabChange="tabChange" />
   </div>
-  <div class="content-swiper">
-    <Swiper>
-      <slot></slot>
-    </Swiper>
-  </div>
+  <Swiper :swiperIndex="activeIndex" @slideChange="slideChange">
+    <slot></slot>
+  </Swiper>
   
 </template>
 
 <script setup>
-  import { defineProps } from 'vue';
+  import { ref } from 'vue';
   import Tab from './Tab.vue';
   import Swiper from './Swiper.vue';
 
@@ -24,6 +22,16 @@
       default: () => []
     }
   })
+
+  let activeIndex = ref(0);
+
+  const slideChange = (value) => {
+    activeIndex.value = value;
+  }
+
+  const tabChange = (value) => {
+    activeIndex.value = value;
+  }
 </script>
 
 
