@@ -53,6 +53,7 @@
   const translateX = computed(() => {
     return -currentSlide.value * swiperWidth + tempTranslateX.value
   })
+
   const touchStart = (e) => {
     touchStartX.value = e.targetTouches[0].clientX
     touchStartY.value = e.targetTouches[0].clientY
@@ -130,7 +131,7 @@
 
     .swiper-item {
       display: flex;
-      transition: all 0.3s;
+      transition: transform 0.3s;
     }
   }
 </style>

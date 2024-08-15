@@ -1,10 +1,15 @@
 <template>
   <multi-tab-swiper :tabs="tabs">
+    <template #refresh>
+      刷新中
+    </template>
+
     <template #bannerContent>
       <div class="banner-box">
         顶部内容区
       </div>
     </template>
+
     <div class="tab-content">
       <p>tab1 content</p>
       <div class="data-item" v-for="(item, index) in data1" :key="index">{{ item }}</div>
@@ -12,6 +17,7 @@
     <div class="tab-content">tab2 content</div>
     <div class="tab-content">tab3 content</div>
     <div class="tab-content">tab4 content</div>
+    
   </multi-tab-swiper>
 </template>
 
