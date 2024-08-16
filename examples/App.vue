@@ -1,8 +1,8 @@
 <template>
-  <multi-tab-swiper :tabs="tabs">
-    <template #refresh>
+  <multi-tab-swiper :tabs="tabs" @pullupRefresh="pullupRefresh" loadingEnd="isLoadingEnd">
+    <!-- <template #refresh>
       刷新中
-    </template>
+    </template> -->
 
     <template #bannerContent>
       <div class="banner-box">
@@ -28,6 +28,15 @@
   const tabs = ref(["tab1", "tab2", "tab3", "tab4"]);
 
   const data1 = ref(new Array(100).fill(0));
+
+  let isLoadingEnd = ref(false);
+
+  const pullupRefresh = () => {
+    setTimeout(() => {
+      data1.value = data1.value.unshift('新增数据')
+      isLoadingEnd.value = true;
+    }, 1000);
+  }
 </script>
 
 <style scoped>
