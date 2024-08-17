@@ -1,5 +1,9 @@
 <template>
-  <scroll-view @pullupRefresh="pullupRefresh" :loadingEnd="loadingEnd">
+  <scroll-view 
+    :loadingEnd="loadingEnd"
+    @pulldonwRefresh="pulldonwRefresh"
+    @pullupLoadMore="pullupLoadMore"
+  >
     <template #refresh>
       <slot name="refresh"></slot>
     </template>
@@ -36,7 +40,7 @@
     }
   })
 
-  const emit = defineEmits(['pullupRefresh'])
+  const emit = defineEmits(['pulldonwRefresh', 'pullupLoadMore'])
 
   let activeIndex = ref(0)
 
@@ -48,12 +52,21 @@
     activeIndex.value = value
   }
 
-  const pullupRefresh = () => {
-    emit('pullupRefresh')
+  const pulldonwRefresh = () => {
+    emit('pulldonwRefresh')
+  }
+
+  const pullupLoadMore = () => {
+    emit('pullupLoadMore')
   }
 </script>
 
 
 <style scoped>
-
+.tabs-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #e7acb6;
+}
 </style>

@@ -1,5 +1,10 @@
 <template>
-  <multi-tab-swiper :tabs="tabs" @pullupRefresh="pullupRefresh" loadingEnd="isLoadingEnd">
+  <multi-tab-swiper 
+    :tabs="tabs"
+    :loadingEnd="isLoadingEnd"
+    @pulldonwRefresh="pulldonwRefresh"
+    @pullupLoadMore="pullupLoadMore"
+  >
     <!-- <template #refresh>
       刷新中
     </template> -->
@@ -31,10 +36,19 @@
 
   let isLoadingEnd = ref(false);
 
-  const pullupRefresh = () => {
+  const pulldonwRefresh = () => {
+    isLoadingEnd.value = false
     setTimeout(() => {
-      data1.value = data1.value.unshift('新增数据')
-      isLoadingEnd.value = true;
+      data1.value.unshift('下拉刷新数据')
+      isLoadingEnd.value = true
+    }, 1000);
+  }
+
+  const pullupLoadMore = () => {
+    isLoadingEnd.value = false
+    setTimeout(() => {
+      data1.value.push('上拉加载数据')
+      isLoadingEnd.value = true
     }, 1000);
   }
 </script>
