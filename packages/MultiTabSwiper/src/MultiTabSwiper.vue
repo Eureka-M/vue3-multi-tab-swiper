@@ -8,7 +8,7 @@
       <slot name="refresh"></slot>
     </template>
 
-    <div class="banner-content">
+    <div class="banner-content" id="bannerContent">
       <slot name="bannerContent"></slot>
     </div>
 
@@ -16,7 +16,10 @@
       <Tab :tabs="tabs" :tabIndex="activeIndex" @tabChange="tabChange" />
     </div>
 
-    <Swiper :swiperIndex="activeIndex" @slideChange="slideChange">
+    <Swiper 
+      :swiperIndex="activeIndex"
+      @slideChange="slideChange"
+    >
         <slot></slot>
     </Swiper>
 

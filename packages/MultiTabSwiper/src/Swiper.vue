@@ -25,22 +25,30 @@
 
   const swiper = ref()
   const swiperList = ref()
+  let swiperItemArr = []
+
+  let bannerContentHeight = 0
+  let isStickyTop = false
 
   const swiperListWidth = computed(() => {
     return swiperWidth * swiperLength.value
   })
 
-  const emit = defineEmits(['slideChange'])
+  const emit = defineEmits(['slideChange', 'prepareSlide'])
 
   onMounted(() => {
     swiperWidth = swiper.value.offsetWidth
     swiperLength.value = swiperList.value.children.length
     let minHeight = document.body.offsetHeight - swiper.value.offsetTop
 
-    Array.from(swiperList.value.children).forEach((swiper) => {
+    swiperItemArr = Array.from(swiperList.value.children)
+
+    swiperItemArr.forEach((swiper) => {
       swiper.style.width = swiperWidth + 'px'
-      swiper.style.minHeight = minHeight + 'px'
+      //swiper.style.minHeight = minHeight + 'px'
     })
+
+    bannerContentHeight = document.getElementById('bannerContent').clientHeight
   })
 
   let currentSlide = ref(0)
@@ -59,6 +67,8 @@
     touchStartY.value = e.targetTouches[0].clientY
     touchMoveX.value = 0
     touchMoveY.value = 0
+    // 是否吸顶
+    isStickyTop = document.documentElement.scrollTop >= bannerContentHeight
   }
 
   const touchEnd = () => {
@@ -104,6 +114,13 @@
     if (touchMoveX.value < touchStartX.value && currentSlide.value < swiperLength.value - 1) {
       // prepare next slide translate --
       tempTranslateX.value = -offsetX
+      emit('prepareSlide', {
+        nextSlide: currentSlide.value + 1,
+        action: 'next'
+      })
+      if (isStickyTop) {
+        setSwiperStyle(swiperItemArr, currentSlide.value, currentSlide.value + 1)
+      }
       // console.log('prepare next slide')
 
     }
@@ -111,8 +128,21 @@
       // prepare prev slide translate ++
       tempTranslateX.value = offsetX
       // console.log('prepare prev slide')
+      emit('prepareSlide', {
+        nextSlide: currentSlide.value - 1,
+        action: 'preV'
+      })
+      if (isStickyTop) {
+        setSwiperStyle(swiperItemArr, currentSlide.value, currentSlide.value - 1)
+      }
     }
     
+  }
+
+  const setSwiperStyle = (swipers, currentSlide, nextSlide) => {
+    // let currentSlide = swiper[currentSlide];
+    // let nextSlide = swiper[nextSlide];
+    let current = document.documentElement.scrollTop
   }
 
   watch(() => currentSlide.value, (newValue) => {
@@ -132,6 +162,7 @@
     .swiper-item {
       display: flex;
       transition: transform 0.3s;
+      align-items: flex-start;
     }
   }
 </style>

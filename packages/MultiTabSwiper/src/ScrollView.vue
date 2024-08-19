@@ -10,7 +10,7 @@
       </div>
       <slot></slot>
 
-      <div :class="['pull-down-load-more', {'animation': loadMoreState == 1 }]">
+      <div :class="['pull-down-load-more', {'animation': loadMoreState == 1 }]" ref="loadMore">
         <slot name="loadMore">
           <div class="load-more-text">
             {{ loadMoreText }}
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-  import { onBeforeUnmount, onMounted, ref, computed, watch } from 'vue'
+import { onBeforeUnmount, onMounted, ref, computed, watch } from 'vue'
 
   const props = defineProps({
     pullingText: {
@@ -45,7 +45,7 @@
       type: Boolean,
       default: false
     },
-    noMoreData: {
+    hasMore: {
       type: Boolean,
       default: false
     },
@@ -102,7 +102,7 @@
   let isAtTopOnTouchStart = ref(false)
 
   const touchStart = (e) => {
-    if (refreshState.value === 1) return;
+    if (refreshState.value === 1) return
     console.log('touchStart')
     refreshState.value = 0
     touchStartX.value = e.targetTouches[0].clientX
@@ -159,30 +159,33 @@
     return
   }
 
-  const documentScroll = (e) => {
-    let isBottom = document.documentElement.scrollTop + document.documentElement.clientHeight >= document.documentElement.scrollHeight
-    if (isBottom && loadMoreState.value === 0) {
-      isLoadMore.value = true
-      setTimeout(() => {
-        emit('pullupLoadMore')
-      }, 500)
-
-      loadMoreState.value = 1
-    }
-  }
+  const loadMore = ref()
+  let io = null
 
   const bindEvents = () => {
     document.addEventListener('touchstart', touchStart, { passive: false })
     document.addEventListener('touchmove', touchMove, { passive: false })
     document.addEventListener('touchend', touchEnd, { passive: false })
-    document.addEventListener('scroll', documentScroll, { passive: false })
+
+    io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        isLoadMore.value = true
+        setTimeout(() => {
+          emit('pullupLoadMore')
+        }, 500)
+
+        loadMoreState.value = 1
+      }
+    })
+    io.observe(loadMore.value)
   }
 
   const unBindEvents = () => {
     document.removeEventListener('touchstart', touchStart)
     document.removeEventListener('touchmove', touchMove)
     document.removeEventListener('touchend', touchEnd)
-    document.removeEventListener('scroll', documentScroll)
+    
+    io.disconnect()
   }
 
   onMounted(() => {
