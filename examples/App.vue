@@ -1,5 +1,5 @@
 <template>
-  <multi-tab-swiper 
+  <multi-tab-swiper
     :tabs="tabs"
     :loadingEnd="isLoadingEnd"
     @pulldonwRefresh="pulldonwRefresh"
@@ -10,47 +10,46 @@
     </template> -->
 
     <template #bannerContent>
-      <div class="banner-box">
-        顶部内容区
-      </div>
+      <div class="banner-box">顶部内容区</div>
     </template>
 
     <div class="tab-content">
       <p>tab1 content</p>
-      <div class="data-item" v-for="(item, index) in data1" :key="index">{{ item }}</div>
+      <div class="data-item" v-for="(item, index) in data1" :key="index">
+        {{ item }}
+      </div>
     </div>
     <div class="tab-content">tab2 content</div>
     <div class="tab-content">tab3 content</div>
     <div class="tab-content">tab4 content</div>
-    
   </multi-tab-swiper>
 </template>
 
 <script setup>
-  import { MultiTabSwiper } from '../packages';
-  import { ref } from 'vue';
+import { MultiTabSwiper } from "../packages";
+import { ref } from "vue";
 
-  const tabs = ref(["tab1", "tab2", "tab3", "tab4"]);
+const tabs = ref(["tab1", "tab2", "tab3", "tab4"]);
 
-  const data1 = ref(new Array(100).fill(0));
+const data1 = ref(new Array(100).fill(0));
 
-  let isLoadingEnd = ref(false);
+let isLoadingEnd = ref(false);
 
-  const pulldonwRefresh = () => {
-    isLoadingEnd.value = false
-    setTimeout(() => {
-      data1.value.unshift('下拉刷新数据')
-      isLoadingEnd.value = true
-    }, 1000);
-  }
+const pulldonwRefresh = () => {
+  isLoadingEnd.value = false;
+  setTimeout(() => {
+    data1.value.unshift("下拉刷新数据");
+    isLoadingEnd.value = true;
+  }, 1000);
+};
 
-  const pullupLoadMore = () => {
-    isLoadingEnd.value = false
-    setTimeout(() => {
-      data1.value.push('上拉加载数据')
-      isLoadingEnd.value = true
-    }, 1000);
-  }
+const pullupLoadMore = () => {
+  isLoadingEnd.value = false;
+  setTimeout(() => {
+    data1.value.push("上拉加载数据");
+    isLoadingEnd.value = true;
+  }, 1000);
+};
 </script>
 
 <style scoped>
@@ -63,6 +62,5 @@
 }
 
 .tab-content {
-
 }
 </style>
