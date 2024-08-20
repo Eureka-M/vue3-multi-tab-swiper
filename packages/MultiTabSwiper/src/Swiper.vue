@@ -58,6 +58,7 @@ onMounted(() => {
   });
 
   bannerContentHeight = document.getElementById("bannerContent").clientHeight;
+  swiperList.value.style.height = swiperItemArr[0].clientHeight + "px";
 });
 
 let currentSlide = ref(0);
@@ -66,6 +67,8 @@ let touchStartY = ref(0);
 let touchMoveX = ref(0);
 let touchMoveY = ref(0);
 let tempTranslateX = ref(0);
+
+let hasPrepareSlide = false;
 
 const translateX = computed(() => {
   return -currentSlide.value * swiperWidth + tempTranslateX.value;
@@ -78,6 +81,8 @@ const touchStart = (e) => {
   touchMoveY.value = 0;
   // 是否吸顶
   isStickyTop = document.documentElement.scrollTop >= bannerContentHeight;
+
+  hasPrepareSlide = false;
 };
 
 const touchEnd = () => {
@@ -92,6 +97,9 @@ const touchEnd = () => {
     currentSlide.value < swiperLength.value - 1
   ) {
     currentSlide.value++;
+    if (isStickyTop) {
+      swiperSlideEnd(swiperItemArr, currentSlide.value);
+    }
     // console.log('next')
   }
   if (
@@ -100,6 +108,9 @@ const touchEnd = () => {
     currentSlide.value > 0
   ) {
     currentSlide.value--;
+    if (isStickyTop) {
+      swiperSlideEnd(swiperItemArr, currentSlide.value);
+    }
     // console.log('pre')
   }
 };
@@ -117,6 +128,9 @@ const touchMove = (e) => {
   } else {
     // 主要为纵向滑动
     // console.log('Vertical swipe');
+    if (document.documentElement.scrollTop < bannerContentHeight) {
+      resetSwiperMargin(swiperItemArr, currentSlide.value);
+    }
     return;
   }
 
@@ -137,8 +151,11 @@ const touchMove = (e) => {
       nextSlide: currentSlide.value + 1,
       action: "next",
     });
-    if (isStickyTop) {
+    swiperList.value.style.height =
+      swiperItemArr[currentSlide.value + 1].clientHeight + "px";
+    if (isStickyTop && !hasPrepareSlide) {
       setSwiperStyle(swiperItemArr, currentSlide.value, currentSlide.value + 1);
+      hasPrepareSlide = true;
     }
     // console.log('prepare next slide')
   }
@@ -150,16 +167,49 @@ const touchMove = (e) => {
       nextSlide: currentSlide.value - 1,
       action: "preV",
     });
-    if (isStickyTop) {
+    swiperList.value.style.height =
+      swiperItemArr[currentSlide.value - 1].clientHeight + "px";
+    if (isStickyTop && !hasPrepareSlide) {
       setSwiperStyle(swiperItemArr, currentSlide.value, currentSlide.value - 1);
+      hasPrepareSlide = true;
     }
   }
 };
 
-const setSwiperStyle = (swipers, currentSlide, nextSlide) => {
-  // let currentSlide = swiper[currentSlide];
-  // let nextSlide = swiper[nextSlide];
-  let current = document.documentElement.scrollTop;
+let tabsScrollTop = new Array(swiperLength.value).fill(0);
+
+// 横滑开始
+const setSwiperStyle = (swipers, current, next) => {
+  // 获取当前 tab 的
+  let currentTop = document.documentElement.scrollTop - bannerContentHeight;
+  tabsScrollTop[current] = currentTop;
+
+  // 清空当前的 scroll
+  //document.documentElement.scrollTop = bannerContentHeight;
+  console.log(swipers);
+  swipers.forEach((swiper, index) => {
+    if (index !== current) {
+      let lastTop = tabsScrollTop[index] || 0;
+      swiper.style.marginTop = `${-lastTop + currentTop}px`;
+    }
+  });
+};
+
+// 横滑结束
+const swiperSlideEnd = (swipers, next) => {
+  document.documentElement.scrollTop =
+    bannerContentHeight + (tabsScrollTop[next] || 0);
+  console.log(tabsScrollTop[next] || 0);
+  swipers[next].style.marginTop = "0px";
+};
+
+const resetSwiperMargin = (swipers, current) => {
+  swipers.forEach((swiper, index) => {
+    if (index !== current) {
+      swiper.style.marginTop = `0px`;
+    }
+  });
+  tabsScrollTop = new Array(swiperLength.value).fill(0);
 };
 
 watch(
@@ -172,6 +222,7 @@ watch(
 watch(
   () => props.swiperIndex,
   (newValue) => {
+    swiperList.value.style.height = swiperItemArr[newValue].clientHeight + "px";
     currentSlide.value = newValue;
   }
 );
@@ -185,6 +236,7 @@ watch(
     display: flex;
     transition: transform 0.3s;
     align-items: flex-start;
+    overflow-y: hidden;
   }
 }
 </style>
