@@ -26,32 +26,32 @@
 
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data1" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-1, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data2" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-2, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data3" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-3, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data4" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-4, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data5" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-5, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data6" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-6, Current data is {{ index + 1 }}
       </div>
     </div>
   </multi-tab-swiper>

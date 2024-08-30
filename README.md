@@ -2,7 +2,7 @@
 
 ### 介绍
 
-`MultiTabSwiper` 是一个用于 Vue 3 的多功能组件，它提供了丰富的交互特性，包括上拉加载更多数据、下拉刷新列表、顶部标签栏吸顶，以及水平滑动切换标签时的位置记忆功能。实现参考：[匠心打造多 tab 自动吸顶下的多滚动容器](https://zhuanlan.zhihu.com/p/410913113)
+`MultiTabSwiper` 是一个用于 Vue 3 的多功能组件，它提供了丰富的交互特性，包括上拉加载更多数据、下拉刷新列表、顶部标签栏吸顶，以及水平滑动切换标签时的位置记忆功能。[github 仓库](https://github.com/Eureka-M/vue3-multi-tab-swiper)。实现参考：[匠心打造多 tab 自动吸顶下的多滚动容器](https://zhuanlan.zhihu.com/p/410913113)
 
 ### 安装
 
@@ -69,32 +69,32 @@ app.mount("#app");
 
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data1" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-1, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data2" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-2, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data3" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-3, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data4" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-4, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data5" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-5, Current data is {{ index + 1 }}
       </div>
     </div>
     <div class="tab-content">
       <div class="data-item" v-for="(item, index) in data6" :key="index">
-        This is Tab-{{ tabIndex + 1 }}, Current data is {{ index + 1 }}
+        This is Tab-6, Current data is {{ index + 1 }}
       </div>
     </div>
   </multi-tab-swiper>
