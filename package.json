@@ -1,7 +1,8 @@
 {
   "name": "vue3-multi-tab-swiper",
   "private": false,
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "license": "MIT",
   "keywords": [
     "multi-tab",
     "tab-swiper",
@@ -26,7 +27,6 @@
     }
   },
   "dependencies": {
-    "ant-design-vue": "^4.2.3",
     "less": "^4.2.0",
     "vue": "^3.4.31"
   },

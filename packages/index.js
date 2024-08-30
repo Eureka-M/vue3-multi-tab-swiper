@@ -1,11 +1,8 @@
-import MultiTabSwiper from "./MultiTabSwiper";
-
-export { MultiTabSwiper };
-
-const install = function (Vue) {
-  Vue.component(MultiTabSwiper.name, MultiTabSwiper);
-};
+import MultiTabSwiper from "./MultiTabSwiper/index.vue";
 
 export default {
-  install,
+  install(Vue) {
+    Vue.component("MultiTabSwiper", MultiTabSwiper);
+  },
+  MultiTabSwiper,
 };
