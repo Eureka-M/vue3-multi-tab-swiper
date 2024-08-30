@@ -2,7 +2,7 @@
 
 ### 介绍
 
-`MultiTabSwiper` 是一个用于 Vue 3 的多功能组件，它提供了丰富的交互特性，包括上拉加载更多数据、下拉刷新列表、顶部标签栏吸顶，以及水平滑动切换标签时的位置记忆功能。实现参考：[匠心打造多tab自动吸顶下的多滚动容器](https://zhuanlan.zhihu.com/p/410913113)
+`MultiTabSwiper` 是一个用于 Vue 3 的多功能组件，它提供了丰富的交互特性，包括上拉加载更多数据、下拉刷新列表、顶部标签栏吸顶，以及水平滑动切换标签时的位置记忆功能。实现参考：[匠心打造多 tab 自动吸顶下的多滚动容器](https://zhuanlan.zhihu.com/p/410913113)
 
 ### 安装
 
@@ -211,7 +211,7 @@ const activeChange = (index) => {
 
 ```
 
-### API参考
+### API 参考
 
 ##### props
 
@@ -223,12 +223,12 @@ const activeChange = (index) => {
 
 ##### Slots
 
-| 名称                | 描述                                                         |
-| ------------------- | ------------------------------------------------------------ |
-| -                   | 默认插槽，用于渲染每个 tab项的内容。这里的第一层级 dom 数要和 tabs 数组项数对齐。 |
-| banner-content      | 顶部内容区插槽                                               |
+| 名称                | 描述                                                                                                               |
+| ------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| -                   | 默认插槽，用于渲染每个 tab 项的内容。这里的第一层级 dom 数要和 tabs 数组项数对齐。                                 |
+| banner-content      | 顶部内容区插槽                                                                                                     |
 | refresh-indicator   | 下拉刷新插槽，是一个作用域插槽。抛出来的 state 的值：'pulling' \|\| 'releasing' \|\| 'refreshing' \|\| 'refreshed' |
-| load-more-indicator | 上拉加载插槽，是一个作用域插槽。抛出来的 state 的值：'loadMore' \|\| 'loading' \|\| 'noMoreData' |
+| load-more-indicator | 上拉加载插槽，是一个作用域插槽。抛出来的 state 的值：'loadMore' \|\| 'loading' \|\| 'noMoreData'                   |
 
 ##### Events
 
